@@ -1,0 +1,160 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json",
+    "host:"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "Example Swagger spec.\n\nSchemes: [http, https]",
+    "title": "Golang Microservice API",
+    "contact": {
+      "name": "Sam Chinellato",
+      "email": "samuelechinellato@gmail.com"
+    },
+    "version": "1"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "paths": {
+    "/v1/players": {
+      "get": {
+        "description": "Get list of all players\nReturns 200 with list of all players",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "playerAPI"
+        ],
+        "operationId": "Players",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "SERVER_ERROR"
+          }
+        }
+      },
+      "post": {
+        "description": "Create a Player object in local storage\nReturns 200 on successfull creation.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "general"
+        ],
+        "operationId": "postPlayer",
+        "parameters": [
+          {
+            "description": "The player to create.",
+            "name": "player",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "required": [
+                "firstname",
+                "lastname",
+                "sport",
+                "gender",
+                "age",
+                "country"
+              ],
+              "properties": {
+                "age": {
+                  "type": "integer"
+                },
+                "country": {
+                  "type": "string"
+                },
+                "firstname": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "lastname": {
+                  "type": "string"
+                },
+                "sport": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CREATED"
+          },
+          "400": {
+            "description": "BAD_REQUEST"
+          },
+          "415": {
+            "description": "UNSUPPORTED_MEDIA_TYPE"
+          },
+          "500": {
+            "description": "SERVER_ERROR"
+          }
+        }
+      }
+    },
+    "/v1/players/random": {
+      "get": {
+        "description": "Get a random player\nReturns 200 with a random player",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "general"
+        ],
+        "operationId": "getRandomPlayer",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "500": {
+            "description": "SERVER_ERROR"
+          }
+        }
+      }
+    },
+    "/v1/players/{player_id}": {
+      "get": {
+        "description": "Get player by its id\nReturns 200 with player matching id.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "general"
+        ],
+        "operationId": "getPlayer",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "Player id to retrieve",
+            "name": "player_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "NOT_FOUND"
+          },
+          "500": {
+            "description": "SERVER_ERROR"
+          }
+        }
+      }
+    }
+  }
+}
